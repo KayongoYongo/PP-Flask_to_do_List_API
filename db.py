@@ -23,13 +23,6 @@ class DB:
         host = os.getenv('HOST')
         port = os.getenv('PORT')
         database = os.getenv('DATABASE')
-
-        # Print the loaded environment variables
-        print("USERNAME:", username)
-        print("PASSWORD:", password)
-        print("HOST:", host)
-        print("PORT:", port)
-        print("DATABASE:", database)
         
         # This line sets the database URI for SQLAlchemy to connect to the databse
         mysql_url = f'mysql+mysqlconnector://{username}:{password}@{host}:{port}/{database}'
