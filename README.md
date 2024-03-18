@@ -13,6 +13,13 @@ Run this simple command: `pip install -r requirements.txt`
 # Getting started
 1. Clone the repository: `git clone https://github.com/KayongoYongo/PP-Flask_to_do_List_API.git`
 
-2. Navigate to the apps directory and run this command: `python app.py`
+# If you are starting from scratch:
+* Create the database in SQL using the command `CREATE DATABASE IF NOT EXISTS your_database_name;`
 
-3. To run the website, copy this link onto the browser: `http://127.0.0.1:5000/`
+* Run the script `createDatabase.py` to create the tables by typing `python createDatabase.py`.
+
+* Navigate to the apps directory and run this command: `python app.py`
+
+* To run the website, copy this link onto the browser: `http://127.0.0.1:5000/`
+
+# If you want to use populated data, use the dump file provided:
