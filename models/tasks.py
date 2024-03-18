@@ -9,9 +9,9 @@ it easier to manage and work with database models in SQLAlchemy.
 """
 Base = declarative_base()
 
-class Task(Base):
+class Tasks(Base):
 
-    __tablename__ = 'tasks'
+    __tablename__ = 'todo_table'
 
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
