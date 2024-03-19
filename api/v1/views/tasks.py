@@ -5,12 +5,25 @@ from models import storage
 
 @app_views.route('/tasks', methods=['GET'], strict_slashes=False)
 def get_tasks():
-    """ Returns all tasks"""
-
+    """
+    Returns all tasks
+    """
     task_objs = storage.all(Tasks)
-    task = [obj.to_dict() for obj in task_objs.values()]
-    return jsonify(task)
+    tasks = [obj.to_dict() for obj in task_objs.values()]
+    # print(tasks)
+    return jsonify(tasks), 200
 
+@app_views.route('/tasks/<task_id>', methods=['GET'], strict_slashes=False)
+def get_individual_tasks(task_id):
+    """"
+    Returns indivuidual users by id
+    """
+    task = storage.get(Tasks, task_id)
+
+    print(task)
+    if task is None:
+        abort(404)
+    return jsonify(task.to_dict()), 200
 
 @app_views.route('/tasks', methods=['POST'], strict_slashes=False)
 def create_tasks():
