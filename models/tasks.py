@@ -16,4 +16,12 @@ class Tasks(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(255), nullable=False)
     description = Column(Text)
-    status = Column(Enum('todo', 'done'), default='todo')
+    status = Column(Enum('todo', 'done'))
+
+    def __init__(self, title, description, status='todo'):
+        self.title = title
+        self.description = description
+        self.status = status
+
+    def __str__(self):
+        return f"Title: {self.title}, Description: {self.description}, Status: {self.status}"
