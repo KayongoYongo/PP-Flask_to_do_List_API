@@ -37,22 +37,24 @@ class DB:
         self.__engine = create_engine(mysql_url, echo=False)
     
     def all(self, cls=None):
-        """query on the current database session"""
+        """query on the current database session to retieve all"""
         new_dict = {}
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
+                    key = obj.__class__.__name__ + '.' + str(obj.id)
                     new_dict[key] = obj
         return (new_dict)
     
     def get(self, cls, id):
-        """A method to retrieve one object"""
-        my_dict = self.all(cls)
-        for obj in my_dict.values():
-            if obj.id == id:
-                return obj
+        """ retrieves a single instance"""
+        if cls in classes.values() and id and type(id) == str:
+            d_obj = self.all(cls)
+            for key, value in d_obj.items():
+                if key.split(".")[1] == id:
+                    return value
+        return None
 
     def save(self):
         """commit all changes of the current database session"""
