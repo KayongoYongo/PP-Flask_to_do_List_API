@@ -1,10 +1,18 @@
 from api.v1.views import app_views
 from flask import request, jsonify, abort
 from models.tasks import Tasks
-from db import DB
+from models import storage
 
-@app_views.route('/tasks',
-                 methods=['POST'], strict_slashes=False)
+@app_views.route('/tasks', methods=['GET'], strict_slashes=False)
+def get_tasks():
+    """ Returns all tasks"""
+
+    task_objs = storage.all(Tasks)
+    task = [obj.to_dict() for obj in task_objs.values()]
+    return jsonify(task)
+
+
+@app_views.route('/tasks', methods=['POST'], strict_slashes=False)
 def create_tasks():
     """
     The function creates a task from the
@@ -21,10 +29,14 @@ def create_tasks():
     if data.get("description") is None:
         abort(400, 'Missing description')
 
-    # Create an instance of the DB class
-    db = DB()
+    # Create an instance of the tasks class
+    new_task = Tasks(**data)
+    
+    # Use the storage instance to interact with the database
+    # Add the new task to the session
+    storage.new(new_task)
 
-    # Add a task using the add_task method
-    db.add_task(**data)
+    # Commit the transaction
+    storage.save() 
 
-    return jsonify({'message': 'Task added successfully'})
+    return jsonify(new_task.to_dict()), 201
