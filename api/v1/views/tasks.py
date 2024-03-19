@@ -20,7 +20,6 @@ def get_individual_tasks(task_id):
     """
     task = storage.get(Tasks, task_id)
 
-    print(task)
     if task is None:
         abort(404)
     return jsonify(task.to_dict()), 200
@@ -28,7 +27,7 @@ def get_individual_tasks(task_id):
 @app_views.route('/tasks', methods=['POST'], strict_slashes=False)
 def create_tasks():
     """
-    The function creates a task from the
+    The function creates a task
     """
     # Get data from the request body
     data = request.get_json()
@@ -46,10 +45,38 @@ def create_tasks():
     new_task = Tasks(**data)
     
     # Use the storage instance to interact with the database
-    # Add the new task to the session
-    storage.new(new_task)
-
-    # Commit the transaction
-    storage.save() 
+    new_task.save()
 
     return jsonify(new_task.to_dict()), 201
+
+@app_views.route('/tasks/<task_id>', methods=['PUT'], strict_slashes=False)
+def update_tasks(task_id):
+    """This function updates a task based on the ID"""
+    task = storage.get(Tasks, task_id)
+
+    if task is None:
+        abort(404)
+
+    my_dict = request.get_json()
+
+    if my_dict is None:
+        abort(400, 'Not a JSON')
+
+    for k, v in my_dict.items():
+        setattr(task, k, v)
+
+    storage.save()
+    return jsonify(task.to_dict()), 200
+
+@app_views.route('/tasks/<task_id>', methods=['DELETE'], strict_slashes=False)
+def delete_user(task_id):
+    """ Deletes individual users by id """
+    task = storage.get(Tasks, task_id)
+
+    if task is None:
+        abort(404)
+
+    """ Delete the user """
+    storage.delete(task)
+    storage.save()
+    return jsonify({}), 200
