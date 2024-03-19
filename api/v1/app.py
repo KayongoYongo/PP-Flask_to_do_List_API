@@ -10,5 +10,9 @@ app = Flask(__name__)
 
 app.register_blueprint(app_views)
 
+@app.route("/")
+def home():
+    return jsonify("API started successfully"), 200
+
 if __name__ == "__main__":
     app.run(debug=True)
