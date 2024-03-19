@@ -1,5 +1,6 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Text, Enum
+import models
 
 """
 By inheriting from Base, the User class inherits all the features 
@@ -29,6 +30,15 @@ class Tasks(Base):
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         return new_dict
+    
+    def save(self):
+        """updates the attribute"""
+        models.storage.new(self)
+        models.storage.save()
+
+    def delete(self):
+        """delete the current instance from the storage"""
+        models.storage.delete(self)
     
     def __str__(self):
         return f"Title: {self.title}, Description: {self.description}, Status: {self.status}"
