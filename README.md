@@ -22,4 +22,5 @@ Run this simple command: `pip install -r requirements.txt`
 
 * To run the website, copy this link onto the browser: `http://127.0.0.1:5000/`
 
-# If you want to use populated data, use the dump file provided:
+## If you want to use populated data, use the dump file provided:
+To restore the dump file, use this command `mysql -u username -p database_name < dump_file.sql`
