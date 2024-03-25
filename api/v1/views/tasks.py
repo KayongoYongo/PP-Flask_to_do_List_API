@@ -51,7 +51,9 @@ def create_tasks():
 
 @app_views.route('/tasks/<task_id>', methods=['PUT'], strict_slashes=False)
 def update_tasks(task_id):
-    """This function updates a task based on the ID"""
+    """
+    This function updates a task based on the ID
+    """
     task = storage.get(Tasks, task_id)
 
     if task is None:
@@ -70,13 +72,15 @@ def update_tasks(task_id):
 
 @app_views.route('/tasks/<task_id>', methods=['DELETE'], strict_slashes=False)
 def delete_user(task_id):
-    """ Deletes individual users by id """
+    """
+    Deletes individual tasks by id
+    """
     task = storage.get(Tasks, task_id)
 
     if task is None:
         abort(404)
 
-    """ Delete the user """
+    # Deletes the task
     storage.delete(task)
     storage.save()
     return jsonify({}), 200
