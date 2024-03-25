@@ -1,6 +1,10 @@
 # A flask to do list API
 This is a flask to do list API
 
+# Preview
+# GET request
+![image](https://github.com/KayongoYongo/PP-Flask_to_do_List_API/assets/111020589/d8b04a21-2a27-4878-abb2-ae87564b0520)
+
 ## Functionalities
 * Create task
 * View task/tasks
