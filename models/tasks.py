@@ -30,7 +30,7 @@ class Tasks(Base):
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         return new_dict
-    
+
     def save(self):
         """updates the attribute"""
         models.storage.new(self)
